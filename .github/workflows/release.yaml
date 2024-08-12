@@ -38,19 +38,18 @@ jobs:
           GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
       - name: Add repositories
         run: |
-          for tgz_file in charts/*.tgz; do
-            dir=$(mktemp -d)
-            tar -xzf $tgz_file -C $dir
-            helm dependency list $dir/*/ 2> /dev/null | tail +2 | head -n -1 | awk '{ print "helm repo add " $1 " " $3 }' | while read cmd; do $cmd; done
-            rm -rf $dir
-          done
+          echo "ADD REPOSITORIES: Working Directory: $(pwd)"
+          helm dependency list . #shows the output of dependencies
+          echo "Adding repositories of above dependencies"
+          helm dependency list . 2> /dev/null | tail +2 | head -n -1 | awk '{ print "helm repo add " $1 " " $3 }' | while read cmd; do $cmd; done
       - name: Package and Sign Helm Charts
         run: |
+          echo "PACKAGE REPOSITORIES: Working Directory: $(pwd)"
           helm dependency update .
           helm package . --destination releases/ --sign --key $CR_KEY --keyring $CR_KEYRING
-          helm repo index .
       - name: Update Helm Repo Index
         run: |
+          echo "UPDATE HELM REPO INDEX: Working Directory: $(pwd)"
           helm repo index . --merge index.yaml
           git add index.yaml
           git commit -m "Helm Release [skip ci]"
