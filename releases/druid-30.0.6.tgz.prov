@@ -1,0 +1,72 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/links: |
+    - name: Upstream Project
+      url: https://github.com/apache/druid
+    - name: Chart Source
+      url: https://github.com/asdf2014/druid-helm
+    - name: Druid Blog in English
+      url: https://imply.io/resources/blog/
+    - name: Druid Blog in Chinese
+      url: https://yuzhouwan.com/posts/5845/
+  artifacthub.io/signKey: |-
+    fingerprint: A4521768456A60E88DBE8066139B25C1B5D1AD02
+    url: https://keybase.io/gwshopee
+apiVersion: v2
+appVersion: 30.0.0
+dependencies:
+- - condition: zookeeper.enabled
+  name: zookeeper
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.4.10
+- - condition: mysql.enabled
+  name: mysql
+  repository: https://charts.helm.sh/stable
+  version: 1.6.4
+- - condition: postgresql.enabled
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.2.8
+description: Apache Druid is a high performance real-time analytics database.
+home: https://druid.apache.org/
+icon: https://druid.apache.org/img/favicon.png
+keywords:
+- - bigdata
+- - database
+- - tsdb
+- - olap
+- - analytics
+maintainers:
+- - email: asdf2014@apache.org
+  name: Benedict Jin
+  url: https://yuzhouwan.com/
+- - email: fectrain@outlook.com
+  name: Sensor
+  url: https://github.com/fectrain
+name: druid
+sources:
+- - https://github.com/apache/druid
+- - https://github.com/asdf2014/druid-helm
+- - https://imply.io/resources/blog/
+- - https://yuzhouwan.com/posts/5845/
+version: 30.0.6
+
+...
+files:
+  druid-30.0.6.tgz: sha256:ed0acc6ccb5f3b35903cce7a5970a019a10b7907032b42744906150b3e846eab
+-----BEGIN PGP SIGNATURE-----
+
+wsDcBAEBCgAQBQJmueCVCRATmyXBtdGtAgAA69cMADjEmeeZ98JsiHU9+VHGCJYG
+eCoaZfKaUm3B7gSDd2RXK04cS7HlDcx9BSt3BncEwMore4gBUTgNiVniUZU5budE
+TFwyooohkRsi7C8bq7mLce6hN29OV23B4YmwPQazHkXA5JB2O1BOE1vtgTndfpaO
+6RBE+eS6w+uarzsiLfGiyt+Y2lIvoEP3tk2v2r2A44YM2u1kRE0ntrCqM4mXmaAM
+lRpaSeho+yim7TkPDFA6PmdsnPSKh7ylvVacys6I083yUKjbMSFLUfRT8yG269M6
+hU77xbQrY0oY7IZSVIRcjDQthGQzyvl1f/BtwPeMplAzb6gfaZT3BnhlU38t0775
+lI5i8G6mSZm7sUyTbw/XE2+qu/3g3MEa7Q6hnO036zvriUi+9simRcXVTWcziG/1
+H0K+xSFdFqTDx9kbOWi+kIoFQYcy6R2jlhYGVz7RLVAtAhfQODXbjgTBx4i7t8W5
+IwA3zPYOq0XwDE+Dzh3mn+clBHO9MsBQAEAopjNppw==
+=o2xL
+-----END PGP SIGNATURE-----
