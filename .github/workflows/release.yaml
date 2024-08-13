@@ -50,12 +50,8 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_KEY: "${{ secrets.CR_KEY }}" # Key name used while creating key
           CR_SIGN: true # Set to true to sign images
+          CR_PACKAGE_PATH: releases/
           CR_SKIP_EXISTING: true # If left false, having a .tgz file in main repository will throw error.
-      - name: Move files to release page
-        run: |
-          ls -al .
-          mv *.tgz releases/
-          ls -al releases/
 
   linter-artifacthub:
     runs-on: ubuntu-latest
