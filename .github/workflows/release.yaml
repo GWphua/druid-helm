@@ -49,10 +49,6 @@ jobs:
           CR_KEY: "${{ secrets.CR_KEY }}" # Key name used while creating key
           CR_SIGN: true # Set to true to sign images
           CR_SKIP_EXISTING: true # If left false, having a .tgz file in main repository will throw error.
-      - name: Print directory tree for debug
-        run: |
-          sudo apt-get update && sudo apt-get install tree -y
-          tree -a
       - name: Clean-up and shift files to releases directory
         run: |
           mkdir -p releases/
@@ -66,7 +62,7 @@ jobs:
           fi
           
           if ls druid-*.tgz 1> /dev/null 2>&1; then 
-            git rm -f druid-*.tgz
+            git rm -f ./druid-*.tgz
           else 
             echo "No .tgz file to remove"
           fi
@@ -76,6 +72,10 @@ jobs:
 
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Print directory tree for debug
+        run: |
+          sudo apt-get update && sudo apt-get install tree -y
+          tree -a
 
   linter-artifacthub:
     runs-on: ubuntu-latest
