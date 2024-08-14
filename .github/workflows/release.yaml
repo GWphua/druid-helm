@@ -60,12 +60,17 @@ jobs:
         run: |
           mkdir -p releases/
           shopt -s nullglob
-          files=(.cr-release-packages/druid-*)  
+          files=(.cr-release-packages/druid-*)
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
-            mv .cr-release-packages/druid-* releases/  
+            git status
+            mv .cr-release-packages/druid-* releases/
+            echo "MOVED"
+            git status
             git add releases/druid-*
-            git pull -X ours origin main  # To remove after chart-releaser-action allows skip_upload
+            git pull -X theirs origin main  # To remove after chart-releaser-action allows skip_upload
+            echo "PULLED"
+            git status
             helm repo index .
             git add index.yaml
           else
