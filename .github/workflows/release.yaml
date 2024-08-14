@@ -64,15 +64,12 @@ jobs:
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
             git status
-            mv .cr-release-packages/druid-* releases/
-            echo "MOVED"
-            git status
-            git add releases/druid-*
-            git pull -X theirs origin main  # To remove after chart-releaser-action allows skip_upload
+            git pull origin main  # To remove after chart-releaser-action allows skip_upload
             echo "PULLED"
             git status
             helm repo index .
-            git add index.yaml
+            mv .cr-release-packages/druid-* releases/
+            git add index.yaml releases/druid-*
           else
             echo "No files starting with 'druid-' found in .cr-release-packages/"
           fi
