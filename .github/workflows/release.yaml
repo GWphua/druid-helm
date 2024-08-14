@@ -43,9 +43,9 @@ jobs:
       - name: Run chart-releaser # Generates new version of helm chart along with some file with extension .prov
         uses: helm/chart-releaser-action@v1.6.0
         with:
+          skip-index: true
           charts_dir: charts
           pages_branch: main
-          packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_KEY: "${{ secrets.CR_KEY }}" # Key name used while creating key
