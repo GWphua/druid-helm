@@ -44,13 +44,18 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         with:
           charts_dir: charts
-          pages_branch: main
-          packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_KEY: "${{ secrets.CR_KEY }}" # Key name used while creating key
           CR_SIGN: true # Set to true to sign images
           CR_SKIP_EXISTING: true # If left false, having a .tgz file in main repository will throw error.
+<<<<<<< HEAD
+=======
+      - name: Print directory tree for debug
+        run: |
+          sudo apt-get update && sudo apt-get install tree -y
+          tree -a
+>>>>>>> 573f1c3 (Add shifting file capability to releases)
       - name: Clean-up and shift files to releases directory
         run: |
           mkdir -p releases/
