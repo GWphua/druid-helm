@@ -23,9 +23,6 @@ jobs:
         uses: azure/setup-helm@v3.5
         with:
           version: v3.8.1
-      - name: Download tree
-        run: |
-          sudo apt-get update && sudo apt-get install tree -y
       - name: Add repositories
         run: |
           helm dependency list charts/druid #shows the output of dependencies
@@ -63,10 +60,7 @@ jobs:
           files=(.cr-release-packages/druid-*)
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
-            git status
             git pull origin main  # To remove after chart-releaser-action allows skip_upload
-            echo "PULLED"
-            git status
             helm repo index .
             mv .cr-release-packages/druid-* releases/
             git add index.yaml releases/druid-*
@@ -86,14 +80,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
+            git status
             git commit -m "Update releases directory"
             git push origin main
           fi
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Print directory tree
-        run: |
-          tree -a
 
   linter-artifacthub:
     runs-on: ubuntu-latest
