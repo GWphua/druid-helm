@@ -15,6 +15,9 @@ jobs:
         uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 0
+      - name: Set timezone
+        run: |
+          sudo timedatectl set-timezone Asia/Singapore
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
@@ -60,10 +63,10 @@ jobs:
           files=(.cr-release-packages/druid-*)
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
-            git pull origin main  # To remove after chart-releaser-action allows skip_upload
-            helm repo index .
+            git status
+            git pull -X theirs origin main  # To remove after chart-releaser-action allows skip_upload
             mv .cr-release-packages/druid-* releases/
-            git add index.yaml releases/druid-*
+            git add releases/druid-*
           else
             echo "New packages not found in .cr-release-packages/"
           fi
@@ -80,7 +83,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git status
             git commit -m "Update releases directory"
             git push origin main
           fi
