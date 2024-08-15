@@ -63,13 +63,10 @@ jobs:
           files=(.cr-release-packages/druid-*)
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
-            cat index.yaml
             git restore index.yaml
-            
             git pull origin main  # To remove after chart-releaser-action allows skip_upload
-            cat index.yaml
             mv .cr-release-packages/druid-* releases/
-            git add releases/druid-*
+            git add releases/druid-* 
           else
             echo "New packages not found in .cr-release-packages/"
           fi
@@ -86,6 +83,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
+            helm repo index .
+            git add index.yaml
             git commit -m "Update releases directory"
             git push origin main
           fi
