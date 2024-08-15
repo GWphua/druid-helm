@@ -63,8 +63,11 @@ jobs:
           files=(.cr-release-packages/druid-*)
           # Move files to releases directory
           if [ ${#files[@]} -gt 0 ]; then
-            git status
-            git pull -X theirs origin main  # To remove after chart-releaser-action allows skip_upload
+            cat index.yaml
+            git restore index.yaml
+            
+            git pull origin main  # To remove after chart-releaser-action allows skip_upload
+            cat index.yaml
             mv .cr-release-packages/druid-* releases/
             git add releases/druid-*
           else
